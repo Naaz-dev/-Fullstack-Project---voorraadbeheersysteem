@@ -1,0 +1,81 @@
+# OS and IDE files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# PHP
+*.log
+php_error.log
+error.log
+composer.phar
+vendor/
+
+# Database
+*.sql.backup
+*.sql.gz
+database/backup/
+
+# Environment
+.env
+.env.local
+.env.production
+config.local.php
+
+# Uploads (if you add file upload functionality)
+uploads/*
+!uploads/.gitkeep
+
+# Cache and temp files
+cache/
+tmp/
+temp/
+*.tmp
+*.cache
+
+# Session files (if stored in files)
+sessions/
+
+# Assets (if using build tools)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Compiled/minified assets (if applicable)
+assets/js/dist/
+assets/css/dist/
+
+# Testing
+phpunit.xml
+.phpunit.result.cache
+tests/_output/
+
+# Documentation build
+docs/_build/
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Windows
+desktop.ini
+ehthumbs.db
+
+# MacOS
+.AppleDouble
+.LSOverride
+
+# Git
+*.orig
+*.rej
+
+# Project specific
+# Add any project-specific files to ignore here

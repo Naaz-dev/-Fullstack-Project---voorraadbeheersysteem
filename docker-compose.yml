@@ -1,0 +1,68 @@
+# ToolsForEver Voorraadbeheersysteem - Docker Compose Setup
+
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: toolsforever-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: toolsforever
+      MYSQL_USER: toolsforever_user
+      MYSQL_PASSWORD: toolsforever_pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database:/docker-entrypoint-initdb.d
+    networks:
+      - toolsforever-network
+
+  # PHP Application with PDO MySQL support
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: toolsforever-php
+    restart: always
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - mysql
+    networks:
+      - toolsforever-network
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASS=password
+      - DB_NAME=toolsforever
+
+  # phpMyAdmin (optional - voor database management in browser)
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: toolsforever-phpmyadmin
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: password
+    depends_on:
+      - mysql
+    networks:
+      - toolsforever-network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  toolsforever-network:
+    driver: bridge
